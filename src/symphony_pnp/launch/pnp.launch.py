@@ -72,6 +72,7 @@ def launch_setup(context, *args, **kwargs):
     symphony_type = LaunchConfiguration("symphony_type")
     gripper = LaunchConfiguration("gripper")
     prefix = LaunchConfiguration("prefix")
+    enable_pnp_hold = LaunchConfiguration("enable_pnp_hold")
 
     description_pkg = FindPackageShare('symphony_description')
     gazebo_pkg = FindPackageShare('symphony_gazebo')
@@ -103,6 +104,7 @@ def launch_setup(context, *args, **kwargs):
             " ", "prefix:=", prefix,
             " ", "sim_gazebo:=true",
             " ", "use_fake_hardware:=false",
+            " ", "enable_pnp_hold:=", enable_pnp_hold,
             " ", "simulation_controllers:=", controllers_yaml,
         ]
     )
@@ -242,7 +244,7 @@ def launch_setup(context, *args, **kwargs):
             "symphony_type": symphony_type,
             "prefix": prefix,
             "use_sim_time": "true",
-            "launch_rviz_moveit": "false", 
+            "launch_rviz_moveit": "false",
             'gripper' : gripper,
         }.items(),
     )
@@ -273,13 +275,14 @@ def generate_launch_description():
     declared_arguments = []
     declared_arguments.append(DeclareLaunchArgument("name", default_value="symphony"))
     declared_arguments.append(DeclareLaunchArgument(
-        "symphony_type", 
-        default_value="symphony5", 
+        "symphony_type",
+        default_value="symphony5",
         choices=["symphony5", "symphony10", "symphony15", "symphony20", "symphony40"]
     ))
     declared_arguments.append(DeclareLaunchArgument("prefix", default_value='""'))
     declared_arguments.append(DeclareLaunchArgument("gripper", default_value="robotiq_2f", choices=["robotiq_2f", '""', "none"]))
     declared_arguments.append(DeclareLaunchArgument("launch_rviz", default_value="false"))
     declared_arguments.append(DeclareLaunchArgument("gazebo_on", default_value="true"))
+    declared_arguments.append(DeclareLaunchArgument("enable_pnp_hold", default_value="true"))
 
     return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])

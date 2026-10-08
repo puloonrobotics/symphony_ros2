@@ -28,8 +28,8 @@
 
 <gazebo reference="base_link">
   <material>Gazebo/Red</material>
-    <mu1>2.0</mu1>
-    <mu2>2.0</mu2>
+    <mu1>8.0</mu1>
+    <mu2>8.0</mu2>
 </gazebo>
 
 </robot>
